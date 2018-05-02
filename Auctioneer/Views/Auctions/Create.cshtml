@@ -1,0 +1,37 @@
+﻿@model Auctioneer.ViewModels.AuctionFormViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add Auction</h2>
+
+@using (Html.BeginForm("Create", "Auctions"))
+{
+    <div class="form-group">
+        @Html.LabelFor(a => a.Auction.ItemName)
+        @Html.TextBoxFor(a => a.Auction.ItemName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(a => a.Auction.Details)
+        @Html.TextAreaFor(a => a.Auction.Details, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(a => a.Auction.StartingPrice)
+        @Html.TextBoxFor(a => a.Auction.StartingPrice, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(a => a.Auction.StartDate, new { @class = "form-control", @Value = DateTime.Now })
+
+    @*<div class="form-group">
+            @Html.LabelFor(i => i.Date)
+            @Html.TextBoxFor(i => i.Date, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(i => i.Time)
+            @Html.TextBoxFor(i => i.Time, new { @class = "form-control" })
+        </div>*@
+    <button type="submit" value="Save" class="btn btn-success">Add Auction</button>
+}

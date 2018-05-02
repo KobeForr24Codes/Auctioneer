@@ -190,16 +190,53 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuctionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804300842237_InitialCreate.cs" />
+    <Compile Include="Migrations\201804300842237_InitialCreate.Designer.cs">
+      <DependentUpon>201804300842237_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805010329395_AddFullNameToApplicationUser.cs" />
+    <Compile Include="Migrations\201805010329395_AddFullNameToApplicationUser.Designer.cs">
+      <DependentUpon>201805010329395_AddFullNameToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020047281_AddAuctionAndItemTable.cs" />
+    <Compile Include="Migrations\201805020047281_AddAuctionAndItemTable.Designer.cs">
+      <DependentUpon>201805020047281_AddAuctionAndItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020104062_OverrideConventionsForAuctionsAndItemsTable.cs" />
+    <Compile Include="Migrations\201805020104062_OverrideConventionsForAuctionsAndItemsTable.Designer.cs">
+      <DependentUpon>201805020104062_OverrideConventionsForAuctionsAndItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020555132_AddStartingPriceToAuctionTable.cs" />
+    <Compile Include="Migrations\201805020555132_AddStartingPriceToAuctionTable.Designer.cs">
+      <DependentUpon>201805020555132_AddStartingPriceToAuctionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020804544_RemovedItemModelAndTransferClassToAuctionModel.cs" />
+    <Compile Include="Migrations\201805020804544_RemovedItemModelAndTransferClassToAuctionModel.Designer.cs">
+      <DependentUpon>201805020804544_RemovedItemModelAndTransferClassToAuctionModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020821094_UpdateStartTimeToStartDateAndRemoveEndTimeTemporary.cs" />
+    <Compile Include="Migrations\201805020821094_UpdateStartTimeToStartDateAndRemoveEndTimeTemporary.Designer.cs">
+      <DependentUpon>201805020821094_UpdateStartTimeToStartDateAndRemoveEndTimeTemporary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020857209_AddForeignKeyPropertiesToAuction.cs" />
+    <Compile Include="Migrations\201805020857209_AddForeignKeyPropertiesToAuction.Designer.cs">
+      <DependentUpon>201805020857209_AddForeignKeyPropertiesToAuction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Auction.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AuctionFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -258,6 +295,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Auctions\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +312,32 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804300842237_InitialCreate.resx">
+      <DependentUpon>201804300842237_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805010329395_AddFullNameToApplicationUser.resx">
+      <DependentUpon>201805010329395_AddFullNameToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020047281_AddAuctionAndItemTable.resx">
+      <DependentUpon>201805020047281_AddAuctionAndItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020104062_OverrideConventionsForAuctionsAndItemsTable.resx">
+      <DependentUpon>201805020104062_OverrideConventionsForAuctionsAndItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020555132_AddStartingPriceToAuctionTable.resx">
+      <DependentUpon>201805020555132_AddStartingPriceToAuctionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020804544_RemovedItemModelAndTransferClassToAuctionModel.resx">
+      <DependentUpon>201805020804544_RemovedItemModelAndTransferClassToAuctionModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020821094_UpdateStartTimeToStartDateAndRemoveEndTimeTemporary.resx">
+      <DependentUpon>201805020821094_UpdateStartTimeToStartDateAndRemoveEndTimeTemporary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020857209_AddForeignKeyPropertiesToAuction.resx">
+      <DependentUpon>201805020857209_AddForeignKeyPropertiesToAuction.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
