@@ -20,13 +20,19 @@ namespace Auctioneer.Models
         //public DateTime EndTime { get; set; }
 
         [Required]
+        [Display(Name = "Starting Price")]
         public int StartingPrice { get; set; }
 
         [Required]
+        [Display(Name = "Item Name")]
         [StringLength(200)]
         public string ItemName { get; set; }
 
         [Required]
         public string Details { get; set; }
+
+        public bool IsAwarded { get; set; }
+
+        public string AwardedId { get; set; }
     }
 }

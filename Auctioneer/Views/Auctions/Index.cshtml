@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Auctions</h2>
+
+<div class="row">
+    @foreach (var auction in Model)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading text-center">@auction.ItemName</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+                        </div>
+
+                        <div class='col-md-12'>
+                            <h4 class="text-center"><strong>Bid Price: $@auction.StartingPrice</strong></h4>
+                            <h4 class="text-center"><strong><a href="#">12 Bids</a></strong></h4>
+                            <p class="text-center"><strong>Highest Bidder: </strong>@auction.User.FullName</p>
+
+                            <hr style="height:1px;border:none;color:#A9A9A9;background-color:	#A9A9A9;" />
+
+                            <p class="text-center">Time Left: 17:23:20</p>
+                            <button class="btn btn-success col-md-12">Award</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -26,6 +26,7 @@ namespace Auctioneer.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Auction> Auctions { get; set; }
+        public DbSet<Bid> Bids { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
