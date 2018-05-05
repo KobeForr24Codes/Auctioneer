@@ -3,18 +3,41 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
 @using (Html.BeginForm("Create", "Bids"))
 {
-    @Html.ValidationSummary(true)
-    <div class="form-group">
-        @Html.LabelFor(b => b.BidAmount)
-        @Html.TextBoxFor(b => b.BidAmount, new { @class = "form-control" })
-        @Html.ValidationMessageFor(b => b.BidAmount)
+    <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+ 
+        <div class="col-md-6">
+            <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+        </div>
+        <div class="col-md-6">
+            @{
+                var sum = Model.HighestBid + 1;
+            }
+            <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
+            <h4 class="well"><strong>Ends In: <span style="color: #18bc9c">3 Days 8 Hours</span></strong></h4>
+            <h4 class="well"><strong>Current Price: <span style="color: #18bc9c">$@Html.DisplayTextFor(a => a.HighestBid)</span></strong></h4>
+            <h4 class="well"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum</span></strong></h4>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    @Html.TextBoxFor(b => b.Amount, new {@class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid"})
+                    @Html.ValidationMessageFor(b => b.Amount)
+                    <span class="input-group-btn">
+                        <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
+                    </span>
+                </div>
+            </div>
+
+
+
+        </div>
     </div>
-
-    @Html.HiddenFor(a => a.Auction.Id)
-
-    <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well">
+                @Html.DisplayTextFor(a => a.Auction.Details)
+            </div>
+        </div>
+    </div>
 }

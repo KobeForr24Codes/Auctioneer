@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Auctioneer.Models;
 using Auctioneer.ViewModels;
-using Dapper;
 using Microsoft.AspNet.Identity;
 
 namespace Auctioneer.Controllers
@@ -29,23 +22,19 @@ namespace Auctioneer.Controllers
             return View();
         }
 
-        public void UpdateHasBids(int id)
-        {
-            
-            
-            
-        }
-
         [Authorize]
         [HttpPost]
         public ActionResult Create(BidFormViewModel viewModel)
-        {  
-
+        {
+//            if (!ModelState.IsValid)
+//            {
+//                return RedirectToAction("Create", viewModel);
+//            }
             var bid = new Bid()
             {
                 UserId = User.Identity.GetUserId(),
-                AuctionId = Convert.ToInt32(viewModel.Auction.Id),
-                Amount = Convert.ToInt32(viewModel.BidAmount)
+                AuctionId = viewModel.Auction.Id,
+                Amount = viewModel.Amount
             };
 
             var result = _context.Auctions.SingleOrDefault(a => a.Id == viewModel.Auction.Id);
@@ -65,7 +54,8 @@ namespace Auctioneer.Controllers
         {
             var viewModel = new BidFormViewModel
             {
-                Auction = _context.Auctions.SingleOrDefault(a => a.Id == id)
+                Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
+                HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount)
             };
             
             return View(viewModel);

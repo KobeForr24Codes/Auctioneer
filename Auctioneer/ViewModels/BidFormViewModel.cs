@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Auctioneer.Models;
 
 namespace Auctioneer.ViewModels
@@ -11,14 +7,17 @@ namespace Auctioneer.ViewModels
     {
         [Required]
         [Display(Name = "Enter Your Bid")]
-        public string BidAmount { get; set; }
+        public int Amount { get; set; }
 
         public Auction Auction { get; set; }
 
-        public string AuctionId { get; set; }
+        public int HighestBid { get; set; }
 
-        public string UserId { get; set; }
+        //[Required]
+        //public int AuctionId { get; set; }
 
+//        [Required]
+//        public int UserId { get; set; }
 
     }
 }
