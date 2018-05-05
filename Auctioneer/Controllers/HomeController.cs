@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Dynamic;
 using Auctioneer.ViewModels;
 using Dapper;
+using Microsoft.AspNet.Identity;
 
 namespace Auctioneer.Controllers
 {
@@ -25,26 +26,31 @@ namespace Auctioneer.Controllers
 
         public ActionResult Index()
         {
-            List<Auction> auctions = new List<Auction>();
-            List<Bid> bids = new List<Bid>();
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-            {
-                auctions = db.Query<Auction>("SELECT * FROM Auctions").ToList();
-                bids = db.Query<Bid>("SELECT * FROM Bids").ToList();
-            }
-//            var auctions = _context.Auctions
-//                .Include(u => u.User)
-//                .ToList();
-//
-//            var bids = _context.Bids
-//                .Include(u => u.User)
-//                .Include(a => a.Auction)
-//                .ToList();
+            //List<Auction> auctions = new List<Auction>();
+            //List<Bid> bids = new List<Bid>();
+            //using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            //{
+            //    auctions = db.Query<Auction>("SELECT * FROM Auctions").ToList();
+            //    bids = db.Query<Bid>("SELECT * FROM Bids").ToList();
+            //}
+            var userId = User.Identity.GetUserId();
+            var auctions = _context.Auctions
+                .Where(a => a.UserId != userId)
+                .Include(u => u.User)
+                .ToList();
+
+            var bids = _context.Bids
+                .Include(u => u.User)
+                .Include(a => a.Auction)
+                .ToList();
+
+            var users = _context.Users.ToList();
 
             MainIndexViewModel auctionBidModel = new MainIndexViewModel
             {
                 Auctions = auctions,
-                Bids = bids
+                Bids = bids,
+                Users = users
             };
 
             return View(auctionBidModel);

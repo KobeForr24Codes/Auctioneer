@@ -34,5 +34,7 @@ namespace Auctioneer.Models
         public bool IsAwarded { get; set; }
 
         public string AwardedId { get; set; }
+
+        public bool HasBids { get; set; }
     }
 }

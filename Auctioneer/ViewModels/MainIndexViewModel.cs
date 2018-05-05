@@ -11,5 +11,7 @@ namespace Auctioneer.ViewModels
         public IEnumerable<Bid> Bids { get; set; }
 
         public IEnumerable<Auction> Auctions { get; set; }
+
+        public IEnumerable<ApplicationUser> Users { get; set; }
     }
 }

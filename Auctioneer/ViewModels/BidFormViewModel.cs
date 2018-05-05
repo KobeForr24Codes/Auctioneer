@@ -12,9 +12,13 @@ namespace Auctioneer.ViewModels
         [Required]
         [Display(Name = "Enter Your Bid")]
         public string BidAmount { get; set; }
-        
+
         public Auction Auction { get; set; }
 
-        
+        public string AuctionId { get; set; }
+
+        public string UserId { get; set; }
+
+
     }
 }

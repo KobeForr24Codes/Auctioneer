@@ -7,16 +7,14 @@
 
 @using (Html.BeginForm("Create", "Bids"))
 {
+    @Html.ValidationSummary(true)
     <div class="form-group">
         @Html.LabelFor(b => b.BidAmount)
         @Html.TextBoxFor(b => b.BidAmount, new { @class = "form-control" })
         @Html.ValidationMessageFor(b => b.BidAmount)
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(a => a.Auction.ItemName)
-        @Html.TextBoxFor(a => a.Auction.ItemName, new { @class = "form-control" }) 
-    </div>
+    @Html.HiddenFor(a => a.Auction.Id)
 
     <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
 }
