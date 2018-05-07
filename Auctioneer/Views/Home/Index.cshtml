@@ -24,13 +24,11 @@
                         <div class='col-md-12'>
                             @if(auction.HasBids == false){
                                 <h4 class="text-center"><strong>Bid Price: <span style="color: #18bc9c">$@auction.StartingPrice</span></strong></h4>
-                                @*<h4 class="text-center"><strong><a href="#">0 Bids</a></strong></h4>*@
                                 <h4 class="text-center"><strong>No Bidder Yet</strong></h4>
                                 <br />
                             }
                             else
                             {
-                                
                                 <h4 class="text-center"><strong>Current Bid Price: <span style="color: #18bc9c">$@Model.Bids.Where(a => a.AuctionId == auction.Id).Max(b => b.Amount)</span></strong></h4>
                                 <h4 class="text-center"><strong><a href="#">@Model.Bids.Count(b => b.AuctionId == auction.Id) Bids</a></strong></h4>
                                 <p class="text-center"><strong>Highest Bidder: 
@@ -39,16 +37,11 @@
                                     @{
                                         var bidId = Model.Bids.Where(a => a.AuctionId == auction.Id).Max(b => b.Id);
                                         var userId = Model.Bids.SingleOrDefault(b => b.Id == bidId);
-                                        var user = Model.Users.SingleOrDefault(u => u.Id == userId.UserId);
                                     }
-                                    @user.FullName
+                                    @userId.User.FullName
                                 </span></strong></p>
-                                
-                                
                             }
-
                             <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;"/>
-
                             <p class="text-center">Time Left: 17:23:20</p>
                             <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Bid Now</a>
                         </div>

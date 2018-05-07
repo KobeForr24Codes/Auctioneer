@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Auctioneer.Models;
@@ -61,7 +61,48 @@ namespace Auctioneer.Controllers
             return View(viewModel);
         }
 
-        
+        [Authorize]
+        public ActionResult MyBids()
+        {
+            //var bids = _context.Bids
+            //    .Where(b => b.UserId == userId)
+            //    .Distinct()
+            //    .Include(a => a.Auction)
+            //    .ToList();
+
+            //var auctions = new List<Auction>();
+            //var bids = new List<Bid>();
+            //using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            //{
+            //    bids = db.Query<Bid>("SELECT DISTINCT AuctionId FROM Bids WHERE UserId ='" + User.Identity.GetUserId()+ "'").ToList();
+            //    bids = db.Query<Bid>("SELECT DISTINCT AuctionId FROM Bids WHERE UserId ='" + User.Identity.GetUserId() + "'").ToList();
+            //}
+
+            var userId = User.Identity.GetUserId();
+            var auctions = _context.Auctions
+                .Include(u => u.User)
+                .ToList();
+
+            var bids = _context.Bids.Where(b => b.UserId == userId)
+                .GroupBy(b => b.AuctionId)
+                .Select(b => b.FirstOrDefault())
+                .ToList();
+
+            
+
+            var allBids = _context.Bids.Include(u => u.User).ToList();
+
+            var auctionBidModel = new MyBidsViewModel
+            {
+                Bids = bids,
+                AllBids = allBids,
+                Auctions = auctions,
+            };
+
+            return View(auctionBidModel);
+        }
+
+
 
     }
 }

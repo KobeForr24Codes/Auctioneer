@@ -265,6 +265,7 @@
     <Compile Include="ViewModels\AuctionFormViewModel.cs" />
     <Compile Include="ViewModels\BidFormViewModel.cs" />
     <Compile Include="ViewModels\MainIndexViewModel.cs" />
+    <Compile Include="ViewModels\MyBidsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
@@ -336,6 +337,7 @@
     <Content Include="Views\Auctions\Create.cshtml" />
     <Content Include="Views\Auctions\Index.cshtml" />
     <Content Include="Views\Bids\Display.cshtml" />
+    <Content Include="Views\Bids\MyBids.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

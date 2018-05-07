@@ -1,0 +1,47 @@
+﻿@model Auctioneer.ViewModels.MyBidsViewModel
+@{
+    ViewBag.Title = "DisplayMyBids";
+}
+
+<h2>My Bids</h2>
+
+<div class="row">
+    @foreach (var bid in Model.Bids)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                @{
+                    var auction = Model.Auctions.SingleOrDefault(a => a.Id == bid.AuctionId);
+                }
+                <div class="panel-heading text-center">@auction.ItemName</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+                        </div>
+                        <div class='col-md-12'>
+                            <h4 class="text-center"><strong>Current Bid Price: <span style="color: #18bc9c">$@Model.AllBids.Where(a => a.AuctionId == bid.AuctionId).Max(b => b.Amount)</span></strong></h4>
+                            <h4 class="text-center"><strong><a href="#">@Model.AllBids.Count(b => b.AuctionId == bid.AuctionId) Bids</a></strong></h4>
+                            <p class="text-center">
+                                <strong>
+                                    Highest Bidder:
+                                        <span style="color: #18bc9c">
+                                            @{
+                                                var bidId = Model.AllBids.Where(a => a.AuctionId == bid.AuctionId).Max(b => b.Id);
+                                                var user = Model.AllBids.SingleOrDefault(b => b.Id == bidId);
+                                            }
+                                            @user.User.FullName
+                                        </span>
+                                </strong>
+                            </p>
+                            <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;"/>
+                            <p class="text-center">Time Left: 17:23:20</p>
+                            <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = bid.AuctionId})">Bid Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

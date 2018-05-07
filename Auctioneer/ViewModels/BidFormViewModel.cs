@@ -12,12 +12,5 @@ namespace Auctioneer.ViewModels
         public Auction Auction { get; set; }
 
         public int HighestBid { get; set; }
-
-        //[Required]
-        //public int AuctionId { get; set; }
-
-//        [Required]
-//        public int UserId { get; set; }
-
     }
 }
