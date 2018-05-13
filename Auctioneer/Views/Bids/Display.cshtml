@@ -13,7 +13,7 @@
         var sum2 = Model.Auction.StartingPrice + 1;
         <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
             <div class="col-md-6">
-                <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+                <img src="@Url.Content(Model.Auction.Image)" alt="..." class="img-rounded img-responsive">
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
@@ -46,32 +46,34 @@
     {
         <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
             <div class="col-md-6">
-                <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+                <img src="@Url.Content(Model.Auction.Image)" alt="..." class="img-rounded img-responsive">
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
                 <h4 class="well"><strong>Ends On: <span style="color: #18bc9c">@Model.Auction.EndTime</span></strong></h4>
 @*                <h4 class="well"><strong>Ends In: <span class="timeView" id="timeLeftTextView" data-endtime="@Model.Auction.EndTime" style="color: #18bc9c"></span></strong></h4>*@
                 <h4 class="well"><strong>Current Price: <span style="color: #18bc9c">$@Model.HighestBid</span></strong></h4>
+            @if (Model.Auction.UserId == User.Identity.GetUserId() || Model.Auction.EndTime < DateTime.Now)
+            {
+
+            }
+            else
+            {
                 <h4 class="well"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum</span></strong></h4>
                 <div class="form-group">
                     <div class="input-group">
-                        @if (Model.Auction.UserId == User.Identity.GetUserId() || Model.Auction.EndTime < DateTime.Now)
-                        {
-
-                        }
-                        else
-                        {
-                            <span class="input-group-addon">$</span>
-                            @Html.TextBoxFor(b => b.Amount, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid" })
-                            @Html.ValidationMessageFor(b => b.Amount)
-                            @Html.HiddenFor(a => a.Auction.Id)
-                            <span class="input-group-btn">
-                                <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
-                            </span>
-                        }    
+                        
+                        <span class="input-group-addon">$</span>
+                        @Html.TextBoxFor(b => b.Amount, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid" })
+                        @Html.ValidationMessageFor(b => b.Amount)
+                        @Html.HiddenFor(a => a.Auction.Id)
+                        <span class="input-group-btn">
+                            <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
+                        </span>
+                            
                     </div>
                 </div>
+            }
             </div>
         </div>
     }

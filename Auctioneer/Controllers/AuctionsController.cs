@@ -82,7 +82,7 @@ namespace Auctioneer.Controllers
                 ItemName = viewModel.ItemName,
                 Details = viewModel.Details,
                 EndTime = DateTime.Now.AddDays(viewModel.Days),
-                Image = "test"
+                Image = ProcessImage(viewModel.Image)
             };
 
             _context.Auctions.Add(auction);
@@ -93,16 +93,32 @@ namespace Auctioneer.Controllers
 
         public string ProcessImage(HttpPostedFileBase image)
         {
-            var filename = image.FileName;
-            var filePathOriginal = Server.MapPath("/Content/Uploads/Originals");
-            string savedFileName = Path.Combine(filePathOriginal, filename);
+            var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+            var extension = Path.GetExtension(image.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            var imagePath = "~/Image/" + fileName;
+            var savedFileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
             image.SaveAs(savedFileName);
-            return savedFileName;
+            return imagePath;
+
         }
 
         public ActionResult Pay()
         {
             return View();
+        }
+
+        public ActionResult AwardItem(int auctionId , string userId)
+        {
+            var result = _context.Auctions.SingleOrDefault(a => a.Id == auctionId);
+            if (result != null)
+            {
+                result.IsAwarded = true;
+                result.AwardedId = userId;
+            };
+            
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Auctions");
         }
     }
 }

@@ -40,6 +40,6 @@ namespace Auctioneer.Models
         
         [Required]
         public string Image { get; set; }
-
+       
     }
 }

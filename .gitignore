@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Auctioneer/Image/Pulse_YearBook_Picture185452358.png
+/Auctioneer/Image/Phone185323283.jpg
+/Auctioneer/Image/Laptop180124599.jpg
+/Auctioneer/Image/Ipad185742875.jpg
+/Auctioneer/Image/Cam185802749.jpg
