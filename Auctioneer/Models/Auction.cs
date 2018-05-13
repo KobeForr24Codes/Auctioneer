@@ -17,7 +17,8 @@ namespace Auctioneer.Models
 
         public DateTime StartDate { get; set; }
 
-        //public DateTime EndTime { get; set; }
+        [Required]
+        public DateTime EndTime { get; set; }
 
         [Required]
         [Display(Name = "Starting Price")]
@@ -36,5 +37,9 @@ namespace Auctioneer.Models
         public string AwardedId { get; set; }
 
         public bool HasBids { get; set; }
+        
+        [Required]
+        public string Image { get; set; }
+
     }
 }

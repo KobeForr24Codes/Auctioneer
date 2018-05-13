@@ -1,35 +1,81 @@
-﻿@model Auctioneer.ViewModels.BidFormViewModel
+﻿@using Microsoft.AspNet.Identity
+@model Auctioneer.ViewModels.BidFormViewModel
 @{
     ViewBag.Title = "Create";
 }
 
 @using (Html.BeginForm("Create", "Bids"))
 {
-    <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
-        <div class="col-md-6">
-            <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
-        </div>
-        <div class="col-md-6">
-            @{
-                var sum = Model.HighestBid + 1;
-            }
-            <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
-            <h4 class="well"><strong>Ends In: <span style="color: #18bc9c">3 Days 8 Hours</span></strong></h4>
-            <h4 class="well"><strong>Current Price: <span style="color: #18bc9c">$@Html.DisplayTextFor(a => a.HighestBid)</span></strong></h4>
-            <h4 class="well"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum</span></strong></h4>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">$</span>
-                    @Html.TextBoxFor(b => b.Amount, new {@class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid"})
-                    @Html.ValidationMessageFor(b => b.Amount)
-                    @Html.HiddenFor(a => a.Auction.Id)
-                    <span class="input-group-btn">
-                        <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
-                    </span>
+    var sum = Model.HighestBid + 1;
+
+    if (Model.HighestBid == 0)
+    {
+        var sum2 = Model.Auction.StartingPrice + 1;
+        <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
+                <h4 class="well"><strong>Ends On: <span style="color: #18bc9c">@Model.Auction.EndTime</span></strong></h4>
+@*                <h4 class="well"><strong>Ends In: <span class="timeView" id="timeLeftTextView" data-endtime="@Model.Auction.EndTime" style="color: #18bc9c"></span></strong></h4>*@
+                <h4 class="well"><strong>Current Price: <span style="color: #18bc9c">$@Model.Auction.StartingPrice</span></strong></h4>
+                <h4 class="well"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum2</span></strong></h4>
+                <div class="form-group">
+                    <div class="input-group">
+                        @if (Model.Auction.UserId == User.Identity.GetUserId())
+                        {
+
+                        }
+                        else
+                        {
+                            <span class="input-group-addon">$</span>
+                            @Html.TextBoxFor(b => b.Amount, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid" })
+                            @Html.ValidationMessageFor(b => b.Amount)
+                            @Html.HiddenFor(a => a.Auction.Id)
+                            <span class="input-group-btn">
+                                <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
+                            </span>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <img src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="..." class="img-rounded img-responsive">
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">@Html.DisplayTextFor(a => a.Auction.ItemName)</h2>
+                <h4 class="well"><strong>Ends On: <span style="color: #18bc9c">@Model.Auction.EndTime</span></strong></h4>
+@*                <h4 class="well"><strong>Ends In: <span class="timeView" id="timeLeftTextView" data-endtime="@Model.Auction.EndTime" style="color: #18bc9c"></span></strong></h4>*@
+                <h4 class="well"><strong>Current Price: <span style="color: #18bc9c">$@Model.HighestBid</span></strong></h4>
+                <h4 class="well"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum</span></strong></h4>
+                <div class="form-group">
+                    <div class="input-group">
+                        @if (Model.Auction.UserId == User.Identity.GetUserId() || Model.Auction.EndTime < DateTime.Now)
+                        {
+
+                        }
+                        else
+                        {
+                            <span class="input-group-addon">$</span>
+                            @Html.TextBoxFor(b => b.Amount, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid" })
+                            @Html.ValidationMessageFor(b => b.Amount)
+                            @Html.HiddenFor(a => a.Auction.Id)
+                            <span class="input-group-btn">
+                                <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
+                            </span>
+                        }    
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="row">
         <div class="col-md-12">
             <div class="well">
@@ -37,4 +83,71 @@
             </div>
         </div>
     </div>
+}
+
+@section scripts{
+    <script>
+
+        function convertUTCDateToLocalDate(date) {
+            var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+            var offset = date.getTimezoneOffset() / 60;
+
+            var hours = date.getHours();
+            newDate.setHours(hours - offset);
+
+            return newDate;
+        }
+
+        function setTimer(endtime, elmnt) {
+            getTime(endtime, elmnt);
+            setInterval(function () {
+                getTime(endtime, elmnt);
+            }, 60000);
+
+        }
+
+        function getTime(endtime, elmnt) {
+            var currentDate = new Date();
+            var dateYear = currentDate.getFullYear();
+            var dateMonth = parseInt(currentDate.getMonth());
+            var dateDay = currentDate.getDate();
+            var dateHour = currentDate.getHours();
+            var dateMin = currentDate.getMinutes();
+            var dateSec = currentDate.getSeconds();
+
+            var fcurrentDate = new Date(dateYear, dateMonth, dateDay, dateHour, dateMin, dateSec);
+            var date = convertUTCDateToLocalDate(new Date(endtime));
+
+            var endDate = new Date(date.getFullYear(), date.getDate(), parseInt(date.getMonth()) + 1, date.getHours(), date.getMinutes(), date.getSeconds());
+            var diff = Math.abs(new Date(endDate) - new Date(fcurrentDate));
+            var seconds = Math.floor(diff / 1000); //ignore any left over units smaller than a second
+            var minutes = Math.floor(seconds / 60);
+            var hours = Math.floor((minutes / 60));
+            var days = Math.floor(hours / 24);
+
+            //seconds = seconds % 60;
+            minutes = minutes % 60;
+
+            if (days > 0) {
+                hours = hours - (24 * days);
+                $(elmnt).text(days + ' Day(s) ' + hours + ' Hrs ' + minutes + ' Mins ');
+            }
+            if (days <= 0) {
+                $(elmnt).text(hours + ' Hr(s) ' + minutes + ' Mins ');
+            }
+            if (hours <= 0) {
+                $(elmnt).text(minutes + ' Min(s) ');
+            }
+        }
+
+        $(function () {
+            $('.timeView').each(function () {
+                var id = $(this).data('id');
+                var endtime = $(this).data('endtime');
+
+                setTimer(endtime, this);
+            });
+        });
+    </script>
 }

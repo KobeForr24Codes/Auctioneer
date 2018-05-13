@@ -26,6 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("My Bids", "MyBids", "Bids")</li>
                     <li>@Html.ActionLink("My Auctions", "Index", "Auctions")</li>
+                    <li>@Html.ActionLink("List an Item", "Create", "Auctions")</li>
                 </ul>
             }
             else
@@ -47,7 +48,9 @@
             <p>&copy; @DateTime.Now.Year - Auctioneer</p>
         </footer>
     </div>
-
+    
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/scripts/moment.js")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

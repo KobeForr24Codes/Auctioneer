@@ -1,8 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using Auctioneer.Models;
 using Auctioneer.ViewModels;
+using Dapper;
 using Microsoft.AspNet.Identity;
 
 namespace Auctioneer.Controllers
@@ -52,13 +56,34 @@ namespace Auctioneer.Controllers
         [Authorize]
         public ActionResult Display(int id)
         {
-            var viewModel = new BidFormViewModel
+            bool hasBidsFromDb;
+
+            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
-                Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
-                HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount)
-            };
+                hasBidsFromDb = db.Query<Auction>("SELECT HasBids FROM Auctions WHERE Id ='" + id + "'").ToList().First().HasBids;
+            }
+
+            if (hasBidsFromDb == false)
+            {
+                var viewModel = new BidFormViewModel
+                {
+                    Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
+                    HighestBid = 0
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                var viewModel = new BidFormViewModel
+                {
+                    Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
+                    HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount),
+                };
+
+                return View(viewModel);
+            }
             
-            return View(viewModel);
         }
 
         [Authorize]

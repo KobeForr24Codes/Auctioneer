@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Auctioneer.Models;
 using System.Data.Entity;
@@ -22,8 +23,10 @@ namespace Auctioneer.Controllers
 
             var users = _context.Users.ToList();
 
+            var currentTime = DateTime.Now; 
+
             var auctions = _context.Auctions
-                .Where(a => a.UserId != userId)
+                .Where(a => a.UserId != userId && a.IsAwarded != true && a.EndTime > currentTime)
                 .Include(u => u.User)
                 .ToList();
 

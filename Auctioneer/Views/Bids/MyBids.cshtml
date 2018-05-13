@@ -1,4 +1,5 @@
-﻿@model Auctioneer.ViewModels.MyBidsViewModel
+﻿@using Microsoft.AspNet.Identity
+@model Auctioneer.ViewModels.MyBidsViewModel
 @{
     ViewBag.Title = "DisplayMyBids";
 }
@@ -25,18 +26,33 @@
                             <p class="text-center">
                                 <strong>
                                     Highest Bidder:
-                                        <span style="color: #18bc9c">
-                                            @{
-                                                var bidId = Model.AllBids.Where(a => a.AuctionId == bid.AuctionId).Max(b => b.Id);
-                                                var user = Model.AllBids.SingleOrDefault(b => b.Id == bidId);
-                                            }
-                                            @user.User.FullName
-                                        </span>
+                                    <span style="color: #18bc9c">
+                                        @{
+                                            var bidId = Model.AllBids.Where(a => a.AuctionId == bid.AuctionId).Max(b => b.Id);
+                                            var user = Model.AllBids.SingleOrDefault(b => b.Id == bidId);
+                                        }
+                                        @user.User.FullName
+                                    </span>
                                 </strong>
                             </p>
-                            <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;"/>
-                            <p class="text-center">Time Left: 17:23:20</p>
-                            <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = bid.AuctionId})">Bid Now</a>
+                            <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
+                            @if (@auction.EndTime < DateTime.Now && auction.AwardedId == User.Identity.GetUserId())
+                            {
+                                <p class="text-center"><span class="label label-danger" style="padding: 8px;">Time's Up</span></p>
+                                <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Pay</a>
+                            }
+                            @if (@auction.EndTime < DateTime.Now)
+                            {
+                                <p class="text-center"><span class="label label-danger" style="padding: 8px;">Time's Up</span></p>
+                                <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">View Item</a>
+                            }
+                            else
+                            {
+                                <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime</span></p>
+                                <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Bid</a>
+                            }
+                                
+                           
                         </div>
                     </div>
                 </div>
@@ -45,3 +61,69 @@
     }
 </div>
 
+@section scripts{
+    <script>
+
+    function convertUTCDateToLocalDate(date) {
+        var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+        var offset = date.getTimezoneOffset() / 60;
+
+        var hours = date.getHours();
+        newDate.setHours(hours - offset);
+
+        return newDate;
+    }
+
+    function setTimer(endtime, elmnt) {
+        getTime(endtime, elmnt);
+        setInterval(function () {
+            getTime(endtime, elmnt);
+        }, 60000);
+
+    }
+
+    function getTime(endtime, elmnt) {
+        var currentDate = new Date();
+        var dateYear = currentDate.getFullYear();
+        var dateMonth = parseInt(currentDate.getMonth());
+        var dateDay = currentDate.getDate();
+        var dateHour = currentDate.getHours();
+        var dateMin = currentDate.getMinutes();
+        var dateSec = currentDate.getSeconds();
+
+        var fcurrentDate = new Date(dateYear, dateMonth, dateDay, dateHour, dateMin, dateSec);
+        var date = convertUTCDateToLocalDate(new Date(endtime));
+
+        var endDate = new Date(date.getFullYear(), date.getDate(), parseInt(date.getMonth()) + 1, date.getHours(), date.getMinutes(), date.getSeconds());
+        var diff = Math.abs(new Date(endDate) - new Date(fcurrentDate));
+        var seconds = Math.floor(diff / 1000); //ignore any left over units smaller than a second
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor((minutes / 60));
+        var days = Math.floor(hours / 24);
+
+        //seconds = seconds % 60;
+        minutes = minutes % 60;
+
+        if (days > 0) {
+            hours = hours - (24 * days);
+            $(elmnt).text('Time Left: ' + days + ' Day(s) ' + hours + ' Hrs ' + minutes + ' Mins ');
+        }
+        if (days <= 0) {
+            $(elmnt).text('Time Left: ' + hours + ' Hr(s) ' + minutes + ' Mins ');
+        }
+        if (hours <= 0) {
+            $(elmnt).text('Time Left: ' + minutes + ' Min(s) ');
+        }
+    }
+
+    $(function () {
+        $('.timeView').each(function () {
+            var id = $(this).data('id');
+            var endtime = $(this).data('endtime');
+
+            setTimer(endtime, this);
+        });
+    });
+    </script>
+}
