@@ -24,8 +24,7 @@ namespace Auctioneer.Models
         [Display(Name = "Starting Price")]
         public int StartingPrice { get; set; }
 
-        [Required]
-        [Display(Name = "Item Name")]
+        [Required]    
         [StringLength(200)]
         public string ItemName { get; set; }
 
@@ -40,6 +39,8 @@ namespace Auctioneer.Models
         
         [Required]
         public string Image { get; set; }
+
+        public bool IsRemoved { get; set; }
        
     }
 }

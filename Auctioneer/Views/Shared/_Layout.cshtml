@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Auctioneer.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body style="background: #eff0f4">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -21,15 +22,22 @@
             </div>
             <div class="navbar-collapse collapse">
                 
-            @if (Request.IsAuthenticated)
+            @if (Request.IsAuthenticated && !User.IsInRole(RoleName.CanManage))
             {
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("My Bids", "MyBids", "Bids")</li>
-                    <li>@Html.ActionLink("My Auctions", "Index", "Auctions")</li>
+                    <li>@Html.ActionLink("My Orders", "Index", "Orders")</li>
+                </ul>
+            }
+            @if (User.IsInRole(RoleName.CanManage))
+            {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Auctions", "Index", "Auctions")</li>
+                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
                     <li>@Html.ActionLink("List an Item", "Create", "Auctions")</li>
                 </ul>
             }
-            else
+            @if (!Request.IsAuthenticated)
             {
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>

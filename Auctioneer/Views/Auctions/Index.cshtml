@@ -5,7 +5,7 @@
 
 @if (!Model.Auctions.Any())
 {
-    <div class="jumbotron" style="margin-top: 52px;">
+    <div class="jumbotron" style="margin-top: 52px; background: white">
         <h1 class="text-center">You don't have any listed items :(</h1>
         <div style="margin-top: 52px;" class="text-center">
             <p><a href="@Url.Action("Index", "Home")" class="btn btn-success btn-lg">View Auctions</a></p>
@@ -67,13 +67,13 @@ else
                                 @if (@auction.EndTime < DateTime.Now && Model.Bids.All(a => a.AuctionId != auction.Id))
                                 {   
                                     <p class="text-center"><span class="label label-primary" style="padding: 8px;">Time's Up</span></p>
-                                    <a class="btn btn-danger col-md-5" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Remove Item</a>
-                                    <a class="btn btn-info col-md-offset-2 col-md-5" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Auction Again</a>
+                                    <a class="btn btn-danger col-md-5" href="@Url.Action("RemoveItem", "Auctions", new {auctionId = auction.Id})">Remove Item</a>
+                                    <a class="btn btn-info col-md-offset-2 col-md-5" href="@Url.Action("ReAuction", "Auctions", new {auctionId = auction.Id})">Auction Again</a>
                                     
                                 }
                                 @if (@auction.EndTime > DateTime.Now)
                                 {
-                                    <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime</span></p>
+                                    <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime.ToString("MM/dd/yyyy hh:mm")</span></p>
                                     <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">View Item</a>
                                 }
                             </div>

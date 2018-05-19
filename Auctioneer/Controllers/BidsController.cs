@@ -28,6 +28,7 @@ namespace Auctioneer.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(BidFormViewModel viewModel)
         {
 //            if (!ModelState.IsValid)
@@ -50,7 +51,7 @@ namespace Auctioneer.Controllers
             _context.Bids.Add(bid);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyBids", "Bids");
         }
 
         [Authorize]
@@ -78,7 +79,7 @@ namespace Auctioneer.Controllers
                 var viewModel = new BidFormViewModel
                 {
                     Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
-                    HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount),
+                    HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount)
                 };
 
                 return View(viewModel);

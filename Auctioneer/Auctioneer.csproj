@@ -213,6 +213,7 @@
     <Compile Include="Controllers\BidsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Dtos\AuctionDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -277,6 +278,18 @@
     <Compile Include="Migrations\201805121354595_AddImageToAuctionTable.Designer.cs">
       <DependentUpon>201805121354595_AddImageToAuctionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805150757492_SeedUsers.cs" />
+    <Compile Include="Migrations\201805150757492_SeedUsers.Designer.cs">
+      <DependentUpon>201805150757492_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805151016463_AddOrderTable.cs" />
+    <Compile Include="Migrations\201805151016463_AddOrderTable.Designer.cs">
+      <DependentUpon>201805151016463_AddOrderTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805181018329_AddIsRemovedColumnToAuctionsTable.cs" />
+    <Compile Include="Migrations\201805181018329_AddIsRemovedColumnToAuctionsTable.Designer.cs">
+      <DependentUpon>201805181018329_AddIsRemovedColumnToAuctionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auction.cs" />
@@ -284,12 +297,15 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AuctionFormViewModel.cs" />
     <Compile Include="ViewModels\BidFormViewModel.cs" />
     <Compile Include="ViewModels\MainIndexViewModel.cs" />
     <Compile Include="ViewModels\MyBidsViewModel.cs" />
+    <Compile Include="ViewModels\OrderFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
@@ -1147,6 +1163,9 @@
     <Content Include="Views\Bids\MyBids.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Auctions\Pay.cshtml" />
+    <Content Include="Views\Auctions\UserOrders.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\MyOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1211,6 +1230,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805121354595_AddImageToAuctionTable.resx">
       <DependentUpon>201805121354595_AddImageToAuctionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805150757492_SeedUsers.resx">
+      <DependentUpon>201805150757492_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151016463_AddOrderTable.resx">
+      <DependentUpon>201805151016463_AddOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805181018329_AddIsRemovedColumnToAuctionsTable.resx">
+      <DependentUpon>201805181018329_AddIsRemovedColumnToAuctionsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

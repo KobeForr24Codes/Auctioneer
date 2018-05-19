@@ -19,26 +19,16 @@ namespace Auctioneer.Controllers
             _context = new ApplicationDbContext();
         }
 
-        //Returns the auctioned items of the logged in user
+        //Retrieve the auctioned items of the logged in user
         [Authorize]
         public ViewResult Index()
         {
-            //var userId = User.Identity.GetUserId();
-            //var auctions = _context.Auctions
-            //    .Include(a => a.User)
-            //    .Where(a => a.UserId == userId)
-            //    .ToList();
-
-            //return View(auctions);
-
             var userId = User.Identity.GetUserId();
 
             var users = _context.Users.ToList();
-
-            var currentTime = DateTime.Now;
-
+           
             var auctions = _context.Auctions
-                .Where(a => a.UserId == userId && a.IsAwarded != true)
+                .Where(a => a.UserId == userId && a.IsAwarded != true && a.IsRemoved != true)
                 .Include(u => u.User)
                 .ToList();
 
@@ -57,7 +47,12 @@ namespace Auctioneer.Controllers
             return View(auctionBidModel);
         }
 
-        [Authorize]
+        public ActionResult UserOrders()
+        {
+            return View();
+        }
+
+        
         public ActionResult Create()
         {
             return View();
@@ -65,8 +60,9 @@ namespace Auctioneer.Controllers
 
         //Create auction and user must be logged in
         //POST 
-        [Authorize]
+        [Authorize(Roles = RoleName.CanManage)]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(AuctionFormViewModel viewModel)
         {
 
@@ -103,11 +99,17 @@ namespace Auctioneer.Controllers
 
         }
 
-        public ActionResult Pay()
+        public ActionResult Pay(int id)
         {
-            return View();
+            var viewModel = new OrderFormViewModel
+            {
+                Auctions = _context.Auctions.SingleOrDefault(a => a.Id == id),
+                HighestBid = _context.Bids.Where(a => a.AuctionId == id).Max(a => a.Amount)
+            };
+            return View(viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManage)]
         public ActionResult AwardItem(int auctionId , string userId)
         {
             var result = _context.Auctions.SingleOrDefault(a => a.Id == auctionId);
@@ -115,8 +117,35 @@ namespace Auctioneer.Controllers
             {
                 result.IsAwarded = true;
                 result.AwardedId = userId;
-            };
+            }
             
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Auctions");
+        }
+
+        public ActionResult RemoveItem(int auctionId)
+        {
+            var result = _context.Auctions.SingleOrDefault(a => a.Id == auctionId);
+            if (result != null)
+            {
+                result.IsRemoved = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Auctions");
+        }
+
+        public ActionResult ReAuction(int auctionId)
+        {
+            var result = _context.Auctions.SingleOrDefault(a => a.Id == auctionId);
+
+            if (result != null)
+            {
+                var days = (result.EndTime - result.StartDate).Days;
+
+                result.EndTime = DateTime.Now.AddDays(days);
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Auctions");
         }

@@ -34,6 +34,7 @@
                             @Html.ValidationMessageFor(b => b.Amount)
                             @Html.HiddenFor(a => a.Auction.Id)
                             <span class="input-group-btn">
+                                @Html.AntiForgeryToken()
                                 <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
                             </span>
                         }
@@ -68,6 +69,7 @@
                         @Html.ValidationMessageFor(b => b.Amount)
                         @Html.HiddenFor(a => a.Auction.Id)
                         <span class="input-group-btn">
+                            @Html.AntiForgeryToken()
                             <button type="submit" value="Save" class="btn btn-success">Place Bid</button>
                         </span>
                             

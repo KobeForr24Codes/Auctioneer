@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Auctioneer.Models.Order>
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+}
+
+@if (!Model.Any())
+{
+    <div class="jumbotron" style="margin-top: 52px; background: white">
+        <h1 class="text-center">No Orders</h1>
+        <div style="margin-top: 52px;" class="text-center">
+            
+        </div>
+    </div>
+}
+else
+{
+    <div class="row" style="margin-top: 52px;">
+        @foreach (var order in Model)
+        {
+            <div class="well col-md-12" style="background: white;">
+                <div class="col-md-12">
+                    <p>Order <span style="color: #18bc9c">#@order.Id</span> | <span style="color: #18bc9c">Placed on 26 Dec 2017</span><span class="pull-right text-danger"><a class="btn-sm btn-danger col-md-12" href="#">Delete</a></span></p>
+                    <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
+                </div>
+                <div class="col-md-2">
+                    <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="200">
+                </div>
+                <div class="col-md-6">
+                    <h3>@order.Auction.ItemName</h3>
+                </div>
+                <div class="col-md-4">
+                    <p class="well well-sm text-center">Delivered on 04 June 2018</p>
+                    <h5>Address: @order.Address</h5>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+

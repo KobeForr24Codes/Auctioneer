@@ -1,9 +1,10 @@
-﻿@model Auctioneer.ViewModels.MainIndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@model Auctioneer.ViewModels.MainIndexViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="jumbotron" style="background: white">
     <h1>Welcome to Auctioneer</h1>
     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     <p><a href="#" class="btn btn-success btn-lg">Learn more &raquo;</a></p>
@@ -48,7 +49,15 @@
                             }
                             <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
                             <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime</span></p>
-                            <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Bid Now</a>
+                            @if (auction.UserId == User.Identity.GetUserId())
+                            {
+                                <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">View Item</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Bid Now</a>
+                            }
+                            
                         </div>
                     </div>
                 </div>

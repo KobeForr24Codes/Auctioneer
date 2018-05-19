@@ -26,7 +26,7 @@ namespace Auctioneer.Controllers
             var currentTime = DateTime.Now; 
 
             var auctions = _context.Auctions
-                .Where(a => a.UserId != userId && a.IsAwarded != true && a.EndTime > currentTime)
+                .Where(a => a.IsAwarded != true && a.EndTime > currentTime)
                 .Include(u => u.User)
                 .ToList();
 

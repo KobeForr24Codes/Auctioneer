@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Auctioneer.Models;
 
 namespace Auctioneer.ViewModels
@@ -7,6 +6,7 @@ namespace Auctioneer.ViewModels
     public class BidFormViewModel
     {
         [Required]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Input must be a number.")]
         [Display(Name = "Enter Your Bid")]
         public int Amount { get; set; }
 
