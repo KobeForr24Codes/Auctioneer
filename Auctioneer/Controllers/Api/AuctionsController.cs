@@ -39,7 +39,7 @@ namespace Auctioneer.Controllers.Api
         }
 
         [HttpPost]
-        public AuctionDto CreatAuction(AuctionDto auctionDto)
+        public AuctionDto CreateAuction(AuctionDto auctionDto)
         {
             if (!ModelState.IsValid)
             {

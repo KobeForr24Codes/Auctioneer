@@ -5,32 +5,46 @@
 
 <h2>My Orders</h2>
 
-<div class="jumbotron" style="margin-top: 52px; background: white">
-    <h1 class="text-center">You don't have any won items :(</h1>
-    <div style="margin-top: 52px;" class="text-center">
-        <p><a href="@Url.Action("Index", "Home")" class="btn btn-success btn-lg">View Auctions</a></p>
-    </div>
-</div>
+@if (!Model.Any())
+{
+    <div class="jumbotron" style="margin-top: 52px; background: white">
+        <h1 class="text-center">No Orders</h1>
+        <div style="margin-top: 52px;" class="text-center">
 
-<div class="row">
-    @foreach (var order in Model)
-    {
-        <div class="well col-md-12" style="background: white;">
-            <div class="col-md-12">
-                <p>Order <span style="color: #18bc9c">#@order.Id</span> | <span style="color: #18bc9c">Placed on 26 Dec 2017</span><span class="pull-right text-danger"><a class="btn-sm btn-danger col-md-12" href="#">Delete</a></span></p>
-                <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
-            </div>
-            <div class="col-md-2">
-                <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="200">
-            </div>
-            <div class="col-md-6">
-                <h3>@order.Auction.ItemName</h3>
-            </div>
-            <div class="col-md-4">
-                <p class="well well-sm text-center">Delivered on 04 June 2018</p>
-                <h5>Address: @order.Address</h5>
-            </div>
         </div>
-    }
-</div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var order in Model)
+        {
+            <div class="well col-md-12" style="background: white;">
+                <div class="col-md-12">
+                    <p>Order <span style="color: #18bc9c">#@order.Id</span> | <span style="color: #18bc9c">Placed on 26 Dec 2017</span></p>
+                    <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
+                </div>
+                <div class="col-md-2">
+                    <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="200">
+                </div>
+                <div class="col-md-6">
+                    <h3>@order.Auction.ItemName</h3>
+                </div>
+                <div class="col-md-4">
+                    @if (order.DeliveredDate == null)
+                    {
+                        <p class="well well-sm text-center">To Shipped</p>
+                    }
+                    else
+                    {
+                        <p class="well well-sm text-center">Delivered on @order.DeliveredDate.ToString().AsDateTime().ToString("MMM dd, yyyy")</p>
+                    }   
+                    <h5>Address: @order.Address</h5>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+   
 

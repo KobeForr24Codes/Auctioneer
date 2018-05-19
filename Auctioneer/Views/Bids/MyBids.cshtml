@@ -9,11 +9,16 @@
 <div class="row">
     @foreach (var bid in Model.Bids)
     {
+        
+        var auction = Model.Auctions.SingleOrDefault(a => a.Id == bid.AuctionId && !a.IsRemoved);
+        if (auction == null)
+        {
+             
+        }
+        else
+        {
         <div class="col-md-4">
             <div class="panel panel-success">
-                @{
-                    var auction = Model.Auctions.SingleOrDefault(a => a.Id == bid.AuctionId);
-                }
                 <div class="panel-heading text-center">@auction.ItemName</div>
                 <div class="panel-body">
                     <div class="row">
@@ -22,7 +27,7 @@
                         </div>
                         <div class='col-md-12'>
                             <h4 class="text-center"><strong>Current Bid Price: <span style="color: #18bc9c">$@Model.AllBids.Where(a => a.AuctionId == bid.AuctionId).Max(b => b.Amount)</span></strong></h4>
-                            <h4 class="text-center"><strong><a href="#">@Model.AllBids.Count(b => b.AuctionId == bid.AuctionId) Bids</a></strong></h4>
+                            <h4 class="text-center"><strong style="color: #18bc9c">@Model.AllBids.Count(b => b.AuctionId == bid.AuctionId) Bids</strong></h4>
                             <p class="text-center">
                                 <strong>
                                     Highest Bidder:
@@ -48,16 +53,17 @@
                             }
                             @if (@auction.EndTime > DateTime.Now)
                             {
-                                <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime</span></p>
+                                <p class="text-center">Ends on: <span style="color: #18bc9c">@($"{auction.EndTime:f}")</span></p>
                                 <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">Bid</a>
                             }
-                                
-                           
+                               
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+         }
+        
     }
 </div>
 

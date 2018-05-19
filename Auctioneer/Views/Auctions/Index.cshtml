@@ -38,7 +38,7 @@ else
                                 else
                                 {
                                     <h4 class="text-center"><strong>Current Bid Price: <span style="color: #18bc9c">$@Model.Bids.Where(a => a.AuctionId == auction.Id).Max(b => b.Amount)</span></strong></h4>
-                                    <h4 class="text-center"><strong><a href="#">@Model.Bids.Count(b => b.AuctionId == auction.Id) Bids</a></strong></h4>
+                                    <h4 class="text-center"><strong style="color: #18bc9c">@Model.Bids.Count(b => b.AuctionId == auction.Id) Bids</strong></h4>
                                     <p class="text-center">
                                         <strong>
                                             Highest Bidder:
@@ -73,7 +73,7 @@ else
                                 }
                                 @if (@auction.EndTime > DateTime.Now)
                                 {
-                                    <p class="text-center">Ends on: <span style="color: #18bc9c">@auction.EndTime.ToString("MM/dd/yyyy hh:mm")</span></p>
+                                    <p class="text-center">Ends on: <span style="color: #18bc9c">@($"{auction.EndTime:f}")</span></p>
                                     <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">View Item</a>
                                 }
                             </div>

@@ -41,6 +41,15 @@ namespace Auctioneer.Controllers
         [Authorize]
         public ActionResult Create(OrderFormViewModel viewModel)
         {
+            var auctionFromDb = _context.Auctions.SingleOrDefault(a => a.Id == viewModel.Auctions.Id);
+
+            if (auctionFromDb == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            auctionFromDb.IsRemoved = true;
+
             var order = new Order()
             {
                 UserId = User.Identity.GetUserId(),

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using Auctioneer.Dtos;
 using Auctioneer.Models;
 using AutoMapper;
-using System.Data.Entity;
 
 namespace Auctioneer.Controllers.Api
 {
