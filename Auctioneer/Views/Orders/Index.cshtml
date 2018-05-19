@@ -16,27 +16,59 @@
 }
 else
 {
-    <div class="row" style="margin-top: 52px;">
+    <h1></h1>
+    <table id="orders" class="table table-bordered" style="background: white;">
+        <thead>
+        <tr>            
+            <th>Order #</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach (var order in Model)
         {
-            <div class="well col-md-12" style="background: white;">
-                <div class="col-md-12">
-                    <p>Order <span style="color: #18bc9c">#@order.Id</span> | <span style="color: #18bc9c">Placed on 26 Dec 2017</span><span class="pull-right text-danger"><a class="btn-sm btn-danger col-md-12" href="#">Delete</a></span></p>
-                    <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
-                </div>
-                <div class="col-md-2">
-                    <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="200">
-                </div>
-                <div class="col-md-6">
-                    <h3>@order.Auction.ItemName</h3>
-                </div>
-                <div class="col-md-4">
-                    <p class="well well-sm text-center">Delivered on 04 June 2018</p>
-                    <h5>Address: @order.Address</h5>
-                </div>
-            </div>
+            <tr>
+                <td>@order.Id</td>
+                <td>
+                    <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="50"/>
+                </td>
+                <td>@order.Auction.ItemName</td>
+                <td>
+                    <button data-order-id="@order.Id" class="btn btn-success js-delivered">Delivered</button>
+                </td>
+            </tr>
         }
-    </div>
+        </tbody>
+    </table>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#orders").DataTable();
+
+
+
+            $("#orders").on("click", ".js-delivered", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure for the delivery of Order #" + button.attr("data-order-id"), function(result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/orders/" + button.attr("data-order-id"),
+                            method: "PUT",
+                            success: function() {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+
+            });
+        });
+    </script>
 }
 
 

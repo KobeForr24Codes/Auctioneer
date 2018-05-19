@@ -14,6 +14,9 @@ namespace Auctioneer.App_Start
         {
             Mapper.CreateMap<Auction, AuctionDto>();
             Mapper.CreateMap<AuctionDto, Auction>();
+
+            Mapper.CreateMap<Order, OrderDto>();
+            Mapper.CreateMap<OrderDto, Order>();
         }
     }
 }

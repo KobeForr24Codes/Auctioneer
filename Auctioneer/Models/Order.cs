@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Auctioneer.Models
 {
     public class Order
@@ -14,5 +15,9 @@ namespace Auctioneer.Models
         public int AuctionId { get; set; }
 
         public string Address { get; set; }
+
+        public DateTime DeliveredDate { get; set; }
+
+        public bool IsDelivered { get; set; }
     }
 }
