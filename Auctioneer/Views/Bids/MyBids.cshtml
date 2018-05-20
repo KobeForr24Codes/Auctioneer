@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @model Auctioneer.ViewModels.MyBidsViewModel
 @{
-    ViewBag.Title = "DisplayMyBids";
+    ViewBag.Title = "My Bids";
 }
 
-<h2>My Bids</h2>
+<div class="col-md-12 text-center well" style="background: white;"><h1>My Bids</h1></div>
 
 <div class="row">
     @foreach (var bid in Model.Bids)

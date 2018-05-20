@@ -23,6 +23,7 @@ else
             <th>Order #</th>
             <th>Image</th>
             <th>Name</th>
+            <th>Address</th>
             <th>Options</th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@ else
                     <img src="@Url.Content(order.Auction.Image)" alt="..." class="img-rounded img-responsive" width="50"/>
                 </td>
                 <td>@order.Auction.ItemName</td>
+                <td>@order.Address</td>
                 <td>
                     <button data-order-id="@order.Id" class="btn btn-success js-delivered">Delivered</button>
                 </td>

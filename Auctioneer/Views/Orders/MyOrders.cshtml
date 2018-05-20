@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Auctioneer.Models.Order>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Orders";
 }
 
-<h2>My Orders</h2>
+<div class="col-md-12 text-center well" style="background: white;"><h1>My Orders</h1></div>
 
 @if (!Model.Any())
 {
@@ -21,7 +21,7 @@ else
         {
             <div class="well col-md-12" style="background: white;">
                 <div class="col-md-12">
-                    <p>Order <span style="color: #18bc9c">#@order.Id</span> | <span style="color: #18bc9c">Placed on 26 Dec 2017</span></p>
+                    <p>Order <span style="color: #18bc9c">#@order.Id</span></p>
                     <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
                 </div>
                 <div class="col-md-2">
