@@ -27,6 +27,7 @@ namespace Auctioneer.Controllers
 
             var auctions = _context.Auctions
                 .Where(a => a.IsAwarded != true && a.EndTime > currentTime)
+                .OrderByDescending(a => a.Id)
                 .Include(u => u.User)
                 .ToList();
 
@@ -47,6 +48,8 @@ namespace Auctioneer.Controllers
 
         public ActionResult About()
         {
+            throw new Exception();
+
             ViewBag.Message = "Your application description page.";
 
             return View();

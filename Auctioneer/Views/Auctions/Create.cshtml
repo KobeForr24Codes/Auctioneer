@@ -5,7 +5,7 @@
 
 <h2>Add Auction</h2>
 
-@using (Html.BeginForm("Create", "Auctions", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Create", "Auctions", FormMethod.Post, new {enctype = "multipart/form-data", id = "createForm"}))
 {
     <div class="form-group">
         @Html.LabelFor(a => a.ItemName)
@@ -60,5 +60,23 @@
         </div>
     </div>
     @Html.AntiForgeryToken()
-    <button type="submit" value="Save" class="btn btn-success">Add Auction</button>
+    <a class="btn btn-success .js-createAuction" id="btnConfirm">Add Auction</a>
+    <button type="submit" value="Save" class="btn btn-success hidden" id="btnCreate">Add Auction</button>
+
+}
+
+
+@section scripts{
+    <script>
+        $("#btnConfirm").on("click", function () {
+            var button = $(this);
+            console.log("dsd");
+            bootbox.confirm("Are you sure for the listing of this Product?", function (result) {
+                if (result) {
+                    $("#btnCreate").click();
+                }
+            });
+
+        });
+    </script>
 }

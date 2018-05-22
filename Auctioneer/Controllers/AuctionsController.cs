@@ -29,6 +29,7 @@ namespace Auctioneer.Controllers
            
             var auctions = _context.Auctions
                 .Where(a => a.UserId == userId && a.IsAwarded != true && a.IsRemoved != true)
+                .OrderByDescending(a => a.Id)
                 .Include(u => u.User)
                 .ToList();
 
@@ -52,7 +53,7 @@ namespace Auctioneer.Controllers
             return View();
         }
 
-        
+        [Authorize(Roles = RoleName.CanManage)]
         public ActionResult Create()
         {
             return View();
@@ -99,6 +100,7 @@ namespace Auctioneer.Controllers
 
         }
 
+        [Authorize]
         public ActionResult Pay(int id)
         {
             var viewModel = new OrderFormViewModel
