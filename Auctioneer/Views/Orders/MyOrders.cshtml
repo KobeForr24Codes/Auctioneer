@@ -3,7 +3,7 @@
     ViewBag.Title = "My Orders";
 }
 
-<div class="col-md-12 text-center well" style="background: white;"><h1>My Orders</h1></div>
+
 
 @if (!Model.Any())
 {
@@ -16,6 +16,7 @@
 }
 else
 {
+    <div class="col-md-12 text-center well" style="background: white;"><h1>My Orders</h1></div>
     <div class="row">
         @foreach (var order in Model)
         {
@@ -38,7 +39,7 @@ else
                     else
                     {
                         <p class="well well-sm text-center">Delivered on @order.DeliveredDate.ToString().AsDateTime().ToString("MMM dd, yyyy")</p>
-                    }   
+                    }
                     <h5>Address: @order.Address</h5>
                 </div>
             </div>
@@ -46,5 +47,5 @@ else
     </div>
 }
 
-   
+
 

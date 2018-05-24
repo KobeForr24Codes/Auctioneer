@@ -8,6 +8,10 @@ namespace Auctioneer.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
     }
 
     public class ExternalLoginListViewModel

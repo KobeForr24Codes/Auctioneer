@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link runat="server" rel="shortcut icon" href="~/Image/auctionLogo.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,16 +26,18 @@
             @if (Request.IsAuthenticated && !User.IsInRole(RoleName.CanManage))
             {
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("My Bids", "MyBids", "Bids")</li>
-                    <li>@Html.ActionLink("My Orders", "Index", "Orders")</li>
+                    <li><a href="@Url.Action("MyBids" , "Bids")"><i class="fab fa-bitcoin"></i> My Bids</a></li>
+                    <li><a href="@Url.Action("Index" , "Orders")"><i class="fas fa-box-open"></i> My Orders</a></li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                 </ul>
             }
             @if (User.IsInRole(RoleName.CanManage))
             {
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Auctions", "Index", "Auctions")</li>
-                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
-                    <li>@Html.ActionLink("List an Item", "Create", "Auctions")</li>
+                    <li><a href="@Url.Action("Index" , "Auctions")"><i class="fas fa-boxes"></i> Auctions</a></li>
+                    <li><a href="@Url.Action("Index", "Orders")"><i class="fas fa-clipboard-check"></i> Orders</a></li>
+                    <li><a href="@Url.Action("Create", "Auctions")"><i class="fas fa-plus-circle"></i> List an Item</a></li>
                 </ul>
             }
             @if (!Request.IsAuthenticated)

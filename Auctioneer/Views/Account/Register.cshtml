@@ -1,4 +1,5 @@
-﻿@model Auctioneer.Models.RegisterViewModel
+﻿@using Auctioneer.Models
+@model Auctioneer.Models.RegisterViewModel
 @{
                 /**/
 
@@ -10,8 +11,15 @@
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
-            <h4 class="text-center">Fill in the form below to get instant access.</h4>
+            <h4 class="text-center">Sign Up</h4>
+            <br />
+            <div style="margin-left: 220px;">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
             <hr />
+            <p class="text-center">Or Be Classical</p>
             <div class="form-group">
                 @Html.LabelFor(m => m.Email, new { @class = "col-md-offset-3" })
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control col-md-offset-3" })

@@ -54,9 +54,9 @@ namespace Auctioneer
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "236240697144749",
+               appSecret: "af09f2152f54286cfb8e5ab5b8ca4244");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
