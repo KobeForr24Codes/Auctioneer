@@ -303,6 +303,10 @@
     <Compile Include="Migrations\201805191528204_AddNullableOnDelieveredDate.Designer.cs">
       <DependentUpon>201805191528204_AddNullableOnDelieveredDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805241646336_AddSellerIdToOrderTable.cs" />
+    <Compile Include="Migrations\201805241646336_AddSellerIdToOrderTable.Designer.cs">
+      <DependentUpon>201805241646336_AddSellerIdToOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auction.cs" />
@@ -1355,6 +1359,7 @@
     <Content Include="Views\Auctions\UserOrders.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\MyOrders.cshtml" />
+    <Content Include="Views\Orders\Sales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1433,6 +1438,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805191528204_AddNullableOnDelieveredDate.resx">
       <DependentUpon>201805191528204_AddNullableOnDelieveredDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241646336_AddSellerIdToOrderTable.resx">
+      <DependentUpon>201805241646336_AddSellerIdToOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

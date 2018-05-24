@@ -111,7 +111,7 @@ namespace Auctioneer.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = RoleName.CanManage)]
+        [Authorize]
         public ActionResult AwardItem(int auctionId , string userId)
         {
             var result = _context.Auctions.SingleOrDefault(a => a.Id == auctionId);

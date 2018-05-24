@@ -29,13 +29,25 @@ namespace Auctioneer.Controllers
 
                 var userId = User.Identity.GetUserId();
                 var orders = _context.Orders
-                    .Where(o => o.UserId == userId)
+                    .Where(o => o.SellerId == userId)
                     .Include(a => a.Auction)
                     .ToList();
 
-                return View("MyOrders", orders);
+                return View(orders);
             }
-            
+
+        }
+
+        // GET: Orders
+        public ActionResult MyOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var orders = _context.Orders
+                .Where(o => o.UserId == userId)
+                .Include(a => a.Auction)
+                .ToList();
+
+            return View(orders);
         }
 
         [Authorize]
@@ -54,13 +66,19 @@ namespace Auctioneer.Controllers
             {
                 UserId = User.Identity.GetUserId(),
                 AuctionId = viewModel.Auctions.Id,
-                Address = viewModel.Address
+                Address = viewModel.Address,
+                SellerId = auctionFromDb.UserId
             };
 
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyOrders", "Orders");
+        }
+
+        public ActionResult Sales()
+        {
+            return View();
         }
     }
 }

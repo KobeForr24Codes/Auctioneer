@@ -5,6 +5,7 @@ using System.Web.Http;
 using Auctioneer.Dtos;
 using Auctioneer.Models;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 
 namespace Auctioneer.Controllers.Api
 {
@@ -20,7 +21,9 @@ namespace Auctioneer.Controllers.Api
         // GET /api/orders
         public IHttpActionResult GetOrders()
         {
+            var userId = User.Identity.GetUserId();
             var orderDtos = _context.Orders
+                .Where(o => o.SellerId == userId)
                 .ToList()
                 .Select(Mapper.Map<Order, OrderDto>);
 

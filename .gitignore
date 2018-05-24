@@ -264,3 +264,18 @@ __pycache__/
 /Auctioneer/Image/Laptop180124599.jpg
 /Auctioneer/Image/Ipad185742875.jpg
 /Auctioneer/Image/Cam185802749.jpg
+/Auctioneer/Views/_ViewStart - Copy.cshtml
+/Auctioneer/Views/UsersAdmin/Index.cshtml
+/Auctioneer/Views/UsersAdmin/Edit.cshtml
+/Auctioneer/Views/UsersAdmin/Details.cshtml
+/Auctioneer/Views/UsersAdmin/Delete.cshtml
+/Auctioneer/Views/UsersAdmin/Create.cshtml
+/Auctioneer/Views/RolesAdmin/Index.cshtml
+/Auctioneer/Views/RolesAdmin/Edit.cshtml
+/Auctioneer/Views/RolesAdmin/Details.cshtml
+/Auctioneer/Views/RolesAdmin/Delete.cshtml
+/Auctioneer/Views/RolesAdmin/Create.cshtml
+/Auctioneer/Views/Account/DisplayEmail.cshtml
+/Auctioneer/Models/AdminViewModel.cs
+/Auctioneer/Controllers/UserAdminController.cs
+/Auctioneer/Controllers/RolesAdminController.cs

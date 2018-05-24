@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 </head>
 <body style="background: #eff0f4">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,9 +29,11 @@
             {
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("MyBids" , "Bids")"><i class="fab fa-bitcoin"></i> My Bids</a></li>
-                    <li><a href="@Url.Action("Index" , "Orders")"><i class="fas fa-box-open"></i> My Orders</a></li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    <li><a href="@Url.Action("MyOrders" , "Orders")"><i class="fas fa-box-open"></i> My Orders</a></li>
+                    <li><a style="pointer-events: none; cursor: default" ;>|</a></li>
+                    <li><a href="@Url.Action("Index" , "Auctions")"><i class="fas fa-boxes"></i> My Auctions</a></li>
+                    <li><a href="@Url.Action("Index", "Orders")"><i class="fas fa-clipboard-check"></i> Orders</a></li>
+                    <li><a href="@Url.Action("Sales", "Orders")"><i class="fas fa-tags"></i> Sales</a></li>
                 </ul>
             }
             @if (User.IsInRole(RoleName.CanManage))

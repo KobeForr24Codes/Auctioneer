@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2>Sales</h2>
+
+<div id="chartContainer"></div>
+
+@section scripts{
+    <script type="text/javascript">
+ 
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",
+                animationEnabled: true,
+                title: {
+                    text: "My Sales"
+                },
+                subtitles: [
+                    { text: " " }
+                ],
+                axisY: {
+                    title: "Profit",
+                    titleFontSize: 24,
+                    includeZero: false
+                },
+                axisX: {
+                    title: "Months",
+                    titleFontSize: 24,
+                    includeZero: false
+                },
+                data: [
+                    {
+                        type: "line", //change type to bar, line, area, pie, etc
+                        dataPoints: [
+                            { y: 4000, label: "January" },
+                            { y: 2100, label: "February" },
+                            { y: 2130, label: "March" },
+                            { y: 1500, label: "April" },
+                            { y: 4520, label: "May" },
+                            { y: 3310, label: "June" },
+                            { y: 1000, label: "July" },
+                            { y: 400, label: "August" },
+                            { y: 5050, label: "September" },
+                            { y: 10000, label: "October" },
+                            { y: 2550, label: "November" },
+                            { y: 6000, label: "December" }
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+        };
+    </script> 
+}
