@@ -307,6 +307,14 @@
     <Compile Include="Migrations\201805241646336_AddSellerIdToOrderTable.Designer.cs">
       <DependentUpon>201805241646336_AddSellerIdToOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805250133383_AddBidEntityAndSoldDateToOrderTable.cs" />
+    <Compile Include="Migrations\201805250133383_AddBidEntityAndSoldDateToOrderTable.Designer.cs">
+      <DependentUpon>201805250133383_AddBidEntityAndSoldDateToOrderTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805270616285_RevertToAmountAtOrderTable.cs" />
+    <Compile Include="Migrations\201805270616285_RevertToAmountAtOrderTable.Designer.cs">
+      <DependentUpon>201805270616285_RevertToAmountAtOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auction.cs" />
@@ -440,6 +448,9 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\DaterangePicker\daterangepicker.css" />
+    <Content Include="Content\DaterangePicker\daterangepicker.js" />
+    <Content Include="Content\DaterangePicker\moment.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1441,6 +1452,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805241646336_AddSellerIdToOrderTable.resx">
       <DependentUpon>201805241646336_AddSellerIdToOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805250133383_AddBidEntityAndSoldDateToOrderTable.resx">
+      <DependentUpon>201805250133383_AddBidEntityAndSoldDateToOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805270616285_RevertToAmountAtOrderTable.resx">
+      <DependentUpon>201805270616285_RevertToAmountAtOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

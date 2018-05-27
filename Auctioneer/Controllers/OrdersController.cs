@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Auctioneer.Models;
@@ -67,7 +68,9 @@ namespace Auctioneer.Controllers
                 UserId = User.Identity.GetUserId(),
                 AuctionId = viewModel.Auctions.Id,
                 Address = viewModel.Address,
-                SellerId = auctionFromDb.UserId
+                SellerId = auctionFromDb.UserId,
+                SoldDate = DateTime.Now,
+                Amount = viewModel.HighestBid
             };
 
             _context.Orders.Add(order);
@@ -76,9 +79,49 @@ namespace Auctioneer.Controllers
             return RedirectToAction("MyOrders", "Orders");
         }
 
-        public ActionResult Sales()
+        public ActionResult Sales(string dateFrom, string dateTo)
         {
-            return View();
+            
+
+            try
+            {
+                var From = DateTime.Parse(dateFrom);
+                var To = DateTime.Parse(dateTo);
+
+
+                ViewBag.datefroms = From;
+                ViewBag.datetos = To;
+
+                var userId = User.Identity.GetUserId();
+                var orders = _context.Orders
+                    .Where(o => o.SellerId == userId && o.SoldDate >= From && o.SoldDate <= To)
+                    .Include(a => a.Auction)
+                    .ToList();
+
+                var totalSales = _context.Orders
+                    .Where(o => o.SellerId == userId && o.SoldDate >= From && o.SoldDate <= To)
+                    .Sum(o => (int?)o.Amount);
+
+                ViewBag.total = totalSales == 0 ? 0 : totalSales;
+
+                return View(orders);
+            }
+            catch (Exception e)
+            {
+                var userId = User.Identity.GetUserId();
+                var orders = _context.Orders
+                    .Where(o => o.SellerId == userId)
+                    .Include(a => a.Auction)
+                    .ToList();
+
+                var totalSales = _context.Orders
+                    .Where(o => o.SellerId == userId)
+                    .Sum(o => (int?)o.Amount);
+
+                ViewBag.total = totalSales == 0 ? 0 : totalSales;
+
+                return View(orders);
+            }
         }
     }
 }

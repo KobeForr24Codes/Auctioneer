@@ -18,6 +18,12 @@ namespace Auctioneer
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "SortRoute",
+                url: "{controller}/{action}/{dateFrom}/{dateTo}",
+                defaults: new { controller = "Home", action = "Index", dateFrom = UrlParameter.Optional, dateTo = UrlParameter.Optional }
+            );
         }
     }
 }

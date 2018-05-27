@@ -1,15 +1,69 @@
-﻿
+﻿@model IEnumerable<Auctioneer.Models.Order>
 @{
     ViewBag.Title = "Sales";
 }
 
-<h2>Sales</h2>
 
-<div id="chartContainer"></div>
+<h2>Sales</h2>
+<div id=""></div>
+
+
+
+@*@if (Model.Any())
+{
+<div class="jumbotron" style="margin-top: 52px; background: white">
+    <h1 class="text-center">Cannot Find Any Profits</h1>
+    <div style="margin-top: 52px;" class="text-center">
+
+    </div>
+</div>
+}
+else
+{*@
+<div class="row">
+    <div class="form-group col-md-4">
+        <label>Pick the range of dates</label>
+        <div style="display: flex">
+            <div id="daterange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+            <button class="btn btn-success" onclick="filterBtn()">Filter</button>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <label>Total Sales</label>
+        <input type="text" class="form-control" value="$ @ViewBag.total"/>
+    </div>
+</div>
+
+<table id="orders" class="table table-bordered" style="background: white;">
+        <thead>
+        <tr>
+            <th>Order #</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Sold Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Auction.ItemName</td>
+                <td>$ @order.Amount</td>
+                <td>@order.SoldDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+@* } *@
+
 
 @section scripts{
-    <script type="text/javascript">
- 
+<script type="text/javascript">
+
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 theme: "theme2",
@@ -52,5 +106,65 @@
             });
             chart.render();
         };
-    </script> 
+
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var year = currentDate.getFullYear();
+
+        var dateFrom = new Date(year + "-" + month + "-" + day);
+        var dateTo = new Date(year + "-" + month + "-" + day);
+
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+
+        $(function() {
+            $('#daterange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, function(start, end, label) {
+                console.log("A new Date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                dateFrom = new Date(start.format('YYYY-MM-DD'));
+                dateTo = new Date(end.format('YYYY-MM-DD'));
+            }, cb);
+
+            cb(start, end);
+
+            $("#orders").DataTable();
+            $("#orders").on("click", ".js-delivered", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure for the delivery of Order #" + button.attr("data-order-id"), function(result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/orders/" + button.attr("data-order-id"),
+                            method: "PUT",
+                            success: function() {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+
+        function filterBtn() {
+            var tempdateFrom = dateFrom.getFullYear() + "-" + parseInt(dateFrom.getMonth() + 1) + "-" + dateFrom.getDate();
+            var tempdateTo = dateTo.getFullYear() + "-" + parseInt(dateTo.getMonth() + 1) + "-" + dateTo.getDate();
+            location.href = '@Url.Action("Sales", "Orders")' + "/" + tempdateFrom + "/" + tempdateTo;
+        }
+</script>
 }

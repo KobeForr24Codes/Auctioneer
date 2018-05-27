@@ -21,5 +21,9 @@ namespace Auctioneer.Models
         public bool IsDelivered { get; set; }
 
         public string SellerId { get; set; }
+
+        public DateTime? SoldDate { get; set; }
+
+        public int Amount { get; set; }
     }
 }
