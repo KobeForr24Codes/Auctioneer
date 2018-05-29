@@ -68,7 +68,7 @@ namespace Auctioneer.Controllers
             {
                 var viewModel = new BidFormViewModel
                 {
-                    Auction = _context.Auctions.SingleOrDefault(a => a.Id == id),
+                    Auction = _context.Auctions.Include(u => u.User).SingleOrDefault(a => a.Id == id),
                     HighestBid = 0
                 };
 

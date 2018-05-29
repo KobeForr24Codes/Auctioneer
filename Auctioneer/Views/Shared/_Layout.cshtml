@@ -40,15 +40,13 @@
             {
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("Index" , "Auctions")"><i class="fas fa-boxes"></i> Auctions</a></li>
-                    <li><a href="@Url.Action("Index", "Orders")"><i class="fas fa-clipboard-check"></i> Orders</a></li>
-                    <li><a href="@Url.Action("Create", "Auctions")"><i class="fas fa-plus-circle"></i> List an Item</a></li>
-                </ul>
+                    <li><a href="@Url.Action("Profit", "Home")"><i class="fas fa-clipboard-check"></i> Profit</a></li>
+                </ul>   
             }
             @if (!Request.IsAuthenticated)
             {
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             }
                 

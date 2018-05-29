@@ -315,6 +315,14 @@
     <Compile Include="Migrations\201805270616285_RevertToAmountAtOrderTable.Designer.cs">
       <DependentUpon>201805270616285_RevertToAmountAtOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805280652482_AddedComissionOnOrderTable.cs" />
+    <Compile Include="Migrations\201805280652482_AddedComissionOnOrderTable.Designer.cs">
+      <DependentUpon>201805280652482_AddedComissionOnOrderTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805280904382_RemoveNullableInSoldDate.cs" />
+    <Compile Include="Migrations\201805280904382_RemoveNullableInSoldDate.Designer.cs">
+      <DependentUpon>201805280904382_RemoveNullableInSoldDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auction.cs" />
@@ -323,6 +331,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\SalesReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AuctionFormViewModel.cs" />
@@ -1339,7 +1348,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Profit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -1458,6 +1467,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805270616285_RevertToAmountAtOrderTable.resx">
       <DependentUpon>201805270616285_RevertToAmountAtOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280652482_AddedComissionOnOrderTable.resx">
+      <DependentUpon>201805280652482_AddedComissionOnOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280904382_RemoveNullableInSoldDate.resx">
+      <DependentUpon>201805280904382_RemoveNullableInSoldDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

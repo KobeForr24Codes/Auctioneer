@@ -30,7 +30,7 @@ namespace Auctioneer.Controllers
 
                 var userId = User.Identity.GetUserId();
                 var orders = _context.Orders
-                    .Where(o => o.SellerId == userId)
+                    .Where(o => o.SellerId == userId && o.IsDelivered == false)
                     .Include(a => a.Auction)
                     .ToList();
 
@@ -70,7 +70,8 @@ namespace Auctioneer.Controllers
                 Address = viewModel.Address,
                 SellerId = auctionFromDb.UserId,
                 SoldDate = DateTime.Now,
-                Amount = viewModel.HighestBid
+                Amount = Convert.ToDouble(viewModel.HighestBid - (viewModel.HighestBid * 0.10)),
+                Comission = Convert.ToDouble(viewModel.HighestBid * 0.10)
             };
 
             _context.Orders.Add(order);
@@ -106,7 +107,7 @@ namespace Auctioneer.Controllers
 
                 return View(orders);
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 var userId = User.Identity.GetUserId();
                 var orders = _context.Orders

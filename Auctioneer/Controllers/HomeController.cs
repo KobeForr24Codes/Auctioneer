@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Auctioneer.Models;
 using System.Data.Entity;
+using System.Web.Script.Services;
+using System.Web.Services;
 using Auctioneer.ViewModels;
 using Microsoft.AspNet.Identity;
 
@@ -53,11 +56,32 @@ namespace Auctioneer.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Profit()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public JsonResult GetProfit()
+        {
+            var orders = _context.Orders.GroupBy(o => o.SoldDate.Month);
+            List<SalesReport> comissionList = new List<SalesReport>();
+            foreach (var group in orders)
+            {
+                foreach (var item in group)
+                {
+                    var tempSale = new SalesReport()
+                    {
+                        Month = new DateTime(1997, item.SoldDate.Month, 13).ToString("MMMM"),
+                        Comission = group.Sum(o => o.Comission)
+                    };
+                    comissionList.Add(tempSale);
+                    break;
+                }
+            }
+            var totalComision = _context.Orders.Sum(o => o.Comission);
+            return Json(new { sales = comissionList, totalSales = totalComision });
         }
     }
 }

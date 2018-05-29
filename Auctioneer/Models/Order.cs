@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Auctioneer.Models
 {
@@ -22,8 +23,10 @@ namespace Auctioneer.Models
 
         public string SellerId { get; set; }
 
-        public DateTime? SoldDate { get; set; }
+        public DateTime SoldDate { get; set; }
+        
+        public double Amount { get; set; }
 
-        public int Amount { get; set; }
+        public double Comission { get; set; }
     }
 }

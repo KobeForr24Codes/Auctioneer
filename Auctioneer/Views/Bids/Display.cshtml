@@ -13,6 +13,7 @@
         var sum2 = Model.Auction.StartingPrice + 1;
         <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
             <div class="col-md-6">
+                <h5>Auctioned by @Model.Auction.User.FullName</h5>
                 <img src="@Url.Content(Model.Auction.Image)" alt="..." class="img-rounded img-responsive">
             </div>
             <div class="col-md-6">
@@ -22,7 +23,7 @@
                 <h4 class="well" style="background: white;"><strong>Current Price: <span style="color: #18bc9c">$@Model.Auction.StartingPrice</span></strong></h4>
                 <h4 class="well" style="background: white;"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum2</span></strong></h4>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group" style="display: flex">
                         @if (Model.Auction.UserId == User.Identity.GetUserId())
                         {
 
@@ -62,7 +63,7 @@
             {
                 <h4 class="well" style="background: white;"><strong>Minimum Bid: <span style="color: #18bc9c">$@sum</span></strong></h4>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group" style="display: flex">
                         
                         <span class="input-group-addon">$</span>
                         @Html.TextBoxFor(b => b.Amount, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Enter Your Bid", @id = "inputAmount" })
@@ -83,7 +84,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="well">
+            <div class="well" style="background: white;">
                 @Html.DisplayTextFor(a => a.Auction.Details)
             </div>
         </div>

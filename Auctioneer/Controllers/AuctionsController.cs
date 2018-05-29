@@ -53,7 +53,7 @@ namespace Auctioneer.Controllers
             return View();
         }
 
-        [Authorize(Roles = RoleName.CanManage)]
+        
         public ActionResult Create()
         {
             return View();
@@ -61,7 +61,6 @@ namespace Auctioneer.Controllers
 
         //Create auction and user must be logged in
         //POST 
-        [Authorize(Roles = RoleName.CanManage)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuctionFormViewModel viewModel)

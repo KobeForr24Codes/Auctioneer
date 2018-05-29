@@ -49,6 +49,7 @@
                             }
                             <hr style="height: 1px; border: none; color: #A9A9A9; background-color: #A9A9A9;" />
                             <p class="text-center">Ends on: <span style="color: #18bc9c">@($"{auction.EndTime:f}")</span></p>
+                            <p class="text-center">Auctioned by <span style="color: #18bc9c">@auction.User.FullName</span></p>
                             @if (auction.UserId == User.Identity.GetUserId())
                             {
                                 <a class="btn btn-success col-md-12" href="@Url.Action("Display", "Bids", new {id = auction.Id})">View Item</a>
